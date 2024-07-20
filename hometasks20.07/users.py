@@ -45,13 +45,42 @@ class DummyRequest:
                 ls_post.append(post)
         return ls_post
 
+    def make_product(self):
+        """Products uchun namedtuple yaratish funksiyasi"""
+        ls_product: list = list()
+        field_names = 'id title price rating'
+        Product = namedtuple('Product', field_names=field_names)
+        for item in self.download():
+            try:
+                product = Product(id=item['id'], title=item['title'], price=item['price'], rating=item['rating'])
+            except:
+                raise KeyError("Mos kalit qiymatlari topilmadi. url berishda xatolikka yo'l qo'yilgan ko'rinadi")
+            else:
+                ls_product.append(product)
+        return ls_product
+
+    def make_comment(self):
+        """Comments uchun namedtuple yaratish funksiyasi"""
+        ls_comment: list = list()
+        field_names = 'id post_id user_id body'
+        Comment = namedtuple('Comment', field_names=field_names)
+        for item in self.download():
+            try:
+                comment = Comment(id=item['id'], post_id=item['postId'], user_id=item['user']['id'], body=item['body'])
+            except:
+                raise KeyError("Mos kalit qiymatlari topilmadi. url berishda xatolikka yo'l qo'yilgan ko'rinadi")
+            else:
+                ls_comment.append(comment)
+        return ls_comment
+
 
 def tested():
     for_user = DummyRequest(url='https://dummyjson.com/users')
-    for_post = DummyRequest(url='https://dummyjson.com/users')
-
-    # for i in for_user.make_post():
-    #     print(i)
+    for_post = DummyRequest(url='https://dummyjson.com/posts')
+    for_product = DummyRequest(url='https://dummyjson.com/products')
+    for_comment = DummyRequest(url='https://dummyjson.com/comments')
+    for i in for_comment.make_comment():
+        print(i)
 
 
 if __name__ == '__main__':
