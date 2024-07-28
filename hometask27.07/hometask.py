@@ -27,6 +27,18 @@ class ListClass:
         return nums_ls
 
 
+# 2-masala
+def distinction(tp: tuple) -> str:
+    result: str = ''
+    min_el = tp[0] if len(tp[0]) <= len(tp[1]) else tp[1]
+    max_el = tp[0] if len(tp[0]) >= len(tp[1]) else tp[1]
+    for i in range(len(min_el)):
+        if min_el[i] != max_el[i]:
+            result += min_el[i] + max_el[i]
+    result += max_el[len(min_el):]
+    return result
+
+
 # 3-masala
 def find_one(ls: list[int]) -> int:
     for i in ls:
@@ -56,8 +68,8 @@ def like_users(ls: list) -> str:
 
 
 def tester():
-    u = ['Abdulla', 'Nemat', 'Sherzod', 'Shamsuddin']
-    print(like_users(u))
+    tp = ('aa', 'a')
+    print(distinction(tp))
 
 
 tester()
