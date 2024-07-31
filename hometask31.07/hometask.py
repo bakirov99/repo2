@@ -49,9 +49,10 @@ class DB:
             WHERE username='{username}'"""
         )
 
-
     def show_data(self):
-        pass
+        self.cur.execute(
+            """SELECT * FROM users;"""
+        )
 
     def __enter__(self):
         return self
@@ -66,8 +67,8 @@ with DB() as file:
     file.create_t(tbname='users')
     # file.add_data(username='suxrob')
     # file.delete_data(username='alisher')
-    file.update_data(username='suxrob', firstname='Suxrob', lastname="Qodirov")
-
+    # file.update_data(username='suxrob', firstname='Suxrob', lastname="Qodirov")
+    file.show_data()
 
 
 
